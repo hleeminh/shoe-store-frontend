@@ -35,7 +35,9 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
                 <ul className="bg-white absolute top-6 left-0 min-w-[250px] p-1 text-black shadow-lg rounded-md ">
                   {subMenuData.map((submenu, index1) => (
                     <Link key={index1} href="/" onClick={() => setShowCatMenu(false)}>
-                      <li className="h-12 flex justify-between items-center px-3 rounded-md transition delay-50 bg-white hover:-translate-y-1 hover:scale-105 hover:bg-slate-500 hover:text-white  duration-150">
+                      <li className="h-12 flex justify-between items-center px-3 rounded-md 
+                      transform duration-200 hover:scale-105 bg-white
+                      hover:bg-slate-500 hover:text-white m-1">
                         {submenu.name}
                         <span className="opacity-50 text-sm">({submenu.doc_count})</span>
                       </li>

@@ -1,6 +1,6 @@
 import HeroBanner from "@/components/HeroBanner"
 import Wrapper from "@/components/Wrapper"
-
+import ProductCard from "@/components/ProductCard"
 
 export default function Home() {
   return (
@@ -16,6 +16,19 @@ export default function Home() {
             stack heights to help provide cushioning during extended 
             stretches of running  
           </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:px-0 my-14 mx-5">
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
+          <ProductCard/>
         </div>
       </Wrapper>
     </main>
