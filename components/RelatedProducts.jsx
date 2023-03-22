@@ -1,0 +1,38 @@
+import React from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import ProductCard from "./ProductCard";
+
+
+const RelatedProducts = () => {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
+  return (
+    <div className="md:mt-[100px] mt-[50px] md:mb-0 mb-[100px]">
+        <div className="text-2xl font-bold mb-5">You Might Also Like</div>
+        <Carousel responsive={responsive} containerClass='-mx-[10px]' itemClass="px-[10px]">
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+            <ProductCard/>
+        </Carousel>
+    </div>
+  )
+};
+
+export default RelatedProducts;
