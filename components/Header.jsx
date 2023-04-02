@@ -4,14 +4,24 @@ import Link from 'next/link';
 import Menu from './Menu';
 import MenuMobile from './MenuMobile';
 
-import {IoMdHeartEmpty} from 'react-icons/io';
+import {IoIosLogOut, IoMdHeartEmpty, IoMdLogOut} from 'react-icons/io';
 import { BsCart } from 'react-icons/bs';
-import { BiMenuAltRight } from 'react-icons/bi';
+import { BiMenuAltRight} from 'react-icons/bi';
 import {VscChromeClose} from 'react-icons/vsc';
 import { fetchDataFromApi } from '@/utils/api';
 import { useSelector } from 'react-redux';
 
-const Header = () => {
+import { UserProvider } from "@/utils/authContext";
+import { useUser } from '@/utils/authContext';
+import { useFetchUser } from "@/utils/authContext";
+import { setToken, unsetToken } from '@/utils/auth';
+import { RiLogoutBoxLine, RiLogoutBoxRLine } from 'react-icons/ri';
+
+
+
+const Header = ({user, loading}) => {
+
+    // console.log(loading);
 
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showCatMenu, setShowCatMenu] = useState(false);
@@ -52,6 +62,10 @@ const Header = () => {
         setCategories(data)     
     }
 
+    const logout = () => {
+        unsetToken();
+      };
+
     return (
         <header 
             className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20
@@ -60,16 +74,20 @@ const Header = () => {
             <Wrapper className='h-[60px] flex justify-between items-center'>
                 <div className='flex gap-16'>
                     <Link href='/' onClick={() => {setMobileMenu(false)}}>
-                        <div className='md:text-[30px] text-sm font-bold'>T1HLEEMINH.FIT</div>  
+                        <div className='md:text-[30px] text-[14px] font-bold'>T1.FIT</div>  
                     </Link>
                     
-                    <Menu 
+                    <Menu
+                        user = {user} 
+                        loading = {user}
                         showCatMenu={showCatMenu}
                         setShowCatMenu={setShowCatMenu}
                         categories={categories}
                     />  
 
                     {mobileMenu && <MenuMobile
+                        user= {user}
+                        loading= {loading}
                         showCatMenu={showCatMenu}
                         setShowCatMenu={setShowCatMenu}
                         setMobileMenu={setMobileMenu}
@@ -77,15 +95,34 @@ const Header = () => {
                     />}
                 </div>
 
-                <div className='flex items-center gap-2 text-black'>
+                <div className='flex items-center md:gap-2 gap-1 text-black md:text-base text-[12px]'>
+
+                    {!loading && ( user ? (
+                        <div>Xin chào {user}!</div>
+                    ) : (
+                        ''
+                    ))}
+
+                    {!loading && ( user ? (
+                        <div 
+                            className='w-8 md:w-12 h-8 md:h-12 flex justify-center items-center
+                            cursor-pointer relative transition ease-in-out delay-50 bg-white hover:-translate-y-1 hover:scale-105 duration-150' 
+                            onClick={logout}
+                        >
+                            <IoIosLogOut className='text-[19px] md:text-[24px]'/>
+                        </div>
+                    ) : (
+                        ''
+                    ))}     
+
                     {/* Icon start */}
-                    <div className='w-8 md:w-12 h-8 md:h-12 flex justify-center items-center
+                    {/* <div className='w-8 md:w-12 h-8 md:h-12 flex justify-center items-center
                     cursor-pointer relative transition ease-in-out delay-50 bg-white hover:-translate-y-1 hover:scale-105 duration-150'>
                         <IoMdHeartEmpty className='text-[19px] md:text-[24px]'/>
                         <div className='h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full
                         bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px]
-                        flex justify-center items-center px-[2px] md:px-[5px]'>22</div>
-                    </div>
+                        flex justify-center items-center px-[2px] md:px-[5px]'></div>
+                    </div> */}
                     {/* Icon end */}
 
                     {/* Icon start */}

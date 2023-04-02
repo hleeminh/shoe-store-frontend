@@ -12,8 +12,8 @@ export const setToken = (data) => {
   Cookies.set('jwt', data.jwt);
 
   if (Cookies.get('username')) {
-    Router.reload('/');
-  }
+    Router.push('/login')
+  } 
 };
 
 export const unsetToken = () => {
@@ -24,13 +24,13 @@ export const unsetToken = () => {
   Cookies.remove('jwt');
   Cookies.remove('username');
 
-  Router.reload('/');
+  Router.push('/login')
 };
 
 export const getUserFromLocalCookie = () => {
   const jwt = getTokenFromLocalCookie();
   if (jwt) {
-    return fetcher(`${API_URL}/users/me`, {
+    return fetcher(`${API_URL}/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`,
@@ -48,7 +48,7 @@ export const getUserFromLocalCookie = () => {
 export const getIdFromLocalCookie = () => {
   const jwt = getTokenFromLocalCookie();
   if (jwt) {
-    return fetcher(`${API_URL}/users/me`, {
+    return fetcher(`${API_URL}/api/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${jwt}`,

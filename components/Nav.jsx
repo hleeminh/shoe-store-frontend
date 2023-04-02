@@ -6,12 +6,14 @@ import { useUser } from '@/utils/authContext';
 import { API_URL } from '@/utils/urls';
 
 const Nav = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState({ 
     identifier: '',
     password: '',
   });
 
   const { user, loading } = useUser();
+
+  // console.log(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ const Nav = () => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   return (
     <nav
       className="
@@ -54,16 +57,9 @@ const Nav = () => {
         "
     >
       <div>
-        <Link href="/" passHref>
+        <Link href="/" >
           <div>
-            {/* eslint-disable @next/next/no-img-element */}
-            <img
-              className="m-3"
-              src="/strapi-logo.png"
-              width={200}
-              height={50}
-              alt="Strapi Logo"
-            />
+            {/* {data.user} */}
           </div>
         </Link>
       </div>
@@ -95,24 +91,12 @@ const Nav = () => {
               md:justify-between 
               md:pt-0 space-x-2"
         >
-          <li>
-            <Link href="/">
-              <div className="md:p-2 py-2 block hover:text-purple-400">Home</div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/films">
-              <div className="md:p-2 py-2 block hover:text-purple-400" href="#">
-                Films
-              </div>
-            </Link>
-          </li>
           {!loading &&
             (user ? (
               <li>
                 <Link href="/profile">
                   <div className="md:p-2 py-2 block hover:text-purple-400">
-                    Profile
+                    {user}
                   </div>
                 </Link>
               </li>
